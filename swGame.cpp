@@ -11,6 +11,7 @@
 #include "swPlayerCreateMsg.h"
 #include "swPhysCreateMsg.h"
 #include "swPlayerInputMsg.h"
+#include "swHeadsUpDisplay.h"
 #include "swPhysUpdateMsg.h"
 #include "swMissile.h"
 
@@ -20,21 +21,14 @@
 
 swGame::swGame(QWidget *parent) : QGLWidget(parent), client(NULL), server(NULL) {
     // create the background
-    drawables.append(new swStarfield("../data/starfield.binpts"));
+    drawables.append(new swStarfield("data/starfield.binpts"));
 
     // load the font
-    font.swObject::read("../data/swfont.vfont");
+    font.swObject::read("data/swfont.vfont");
 
-    // TEMP: display a demo gui
-    swLabel* label = new swLabel(&font, "FUEL: 1000");
-    label->pos = swVector(-1, -1);
-    drawables.append(label);
-    label = new swLabel(&font, "SCORE: 0");
-    label->pos = swVector(0, -1);
-    drawables.append(label);
-    label = new swLabel(&font, "AMMO: 100");
-    label->pos = swVector(1, -1);
-    drawables.append(label);
+    // Create and display the HUD
+    swHeadsUpDisplay* HUD = new swHeadsUpDisplay(this);
+    drawables.append(HUD);
 
     // TEMP: create a demo ship and star, and simulate
     server = new swServer(this, 6668);

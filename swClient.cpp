@@ -30,7 +30,7 @@ void swClient::onConnect() {
 
     // TEMP: create the player
     swPlayerCreateMsg playerMsg;
-    playerMsg.player.shipMesh.swObject::read("../data/Arwing.shp");
+    playerMsg.player.shipMesh.swObject::read("data/Arwing.shp");
     playerMsg.player.name = "TestPlayer";
     swFactory::writeObject(&playerMsg, sock);
 
