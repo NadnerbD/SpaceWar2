@@ -8,6 +8,7 @@
 #include "swServer.h"
 #include "swPlayer.h"
 #include "swFactory.h"
+#include "swMainMenu.h"
 #include "swPlayerCreateMsg.h"
 #include "swPhysCreateMsg.h"
 #include "swPlayerInputMsg.h"
@@ -26,7 +27,10 @@ swGame::swGame(QWidget *parent) : QGLWidget(parent), client(NULL), server(NULL) 
     // load the font
     font.swObject::read("data/swfont.vfont");
 
-    // Create and display the HUD
+    swMainMenu* menu = new swMainMenu(this);
+    drawables.append(menu);
+
+    // TEMP: Create and display the HUD
     swHeadsUpDisplay* HUD = new swHeadsUpDisplay(this);
     drawables.append(HUD);
 
