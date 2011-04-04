@@ -18,19 +18,24 @@ swHeadsUpDisplay::swHeadsUpDisplay(swGame* g) :
 swHeadsUpDisplay::~swHeadsUpDisplay() {}
 
 void swHeadsUpDisplay::draw() {
+    // if there is information present, update the display label strings
     if(game->client && game->client->clientId != -1) {
-        glPushMatrix();
-        transform();
         swPlayer* player = &game->client->players[game->client->clientId];
         score.string = QString("SCORE: %1").arg(player->score);
-        score.draw();
         if(player->shipId != -1) {
             swShip* ship = (swShip*)game->simulator.objects[player->shipId];
             fuel.string = QString("FUEL: %1").arg(ship->fuel);
-            fuel.draw();
             ammo.string = QString("AMMO: %1").arg(ship->ammo);
-            ammo.draw();
         }
-        glPopMatrix();
     }
+    // display the HUD
+    // once information leaves scope, such as the player
+    // ship being destroyed, the related displays will remain in
+    // their last known state
+    glPushMatrix();
+    transform();
+    score.draw();
+    fuel.draw();
+    ammo.draw();
+    glPopMatrix();
 }
