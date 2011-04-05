@@ -33,7 +33,6 @@ public:
     void paintGL();
     void keyPressEvent(QKeyEvent* event);
     void keyReleaseEvent(QKeyEvent* event);
-    void keyHandle(QKeyEvent* event);
     void mouseMoveEvent(QMouseEvent* event);
     void mousePressEvent(QMouseEvent* event);
 
@@ -45,6 +44,13 @@ public:
 
     QList<swDrawable*> drawables;
     QTimer* qtimer;
+
+signals:
+    void keyEvent(QKeyEvent*);
+    void mouseEvent(QMouseEvent*);
+
+private slots:
+    void keyHandle(QKeyEvent* event);
 };
 
 #endif // SWGAME_H

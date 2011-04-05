@@ -21,6 +21,9 @@
 #include <QKeyEvent>
 
 swGame::swGame(QWidget *parent) : QGLWidget(parent), client(NULL), server(NULL) {
+    // enable this so we get mousemove events without mouse buttons held down
+    setMouseTracking(true);
+
     // create the background
     drawables.append(new swStarfield("data/starfield.binpts"));
 
@@ -30,6 +33,7 @@ swGame::swGame(QWidget *parent) : QGLWidget(parent), client(NULL), server(NULL) 
     swMainMenu* menu = new swMainMenu(this);
     drawables.append(menu);
 
+    /*
     // TEMP: Create and display the HUD
     swHeadsUpDisplay* HUD = new swHeadsUpDisplay(this);
     drawables.append(HUD);
@@ -40,6 +44,10 @@ swGame::swGame(QWidget *parent) : QGLWidget(parent), client(NULL), server(NULL) 
 
     // TEMP: use simulateOmega
     simulator.simulateOmega = true;
+
+    // TEMP: connect our local key handler for ship movement
+    connect(this, SIGNAL(keyEvent(QKeyEvent*)), SLOT(keyHandle(QKeyEvent*)));
+    */
 
     // start the screen refresh timer
     qtimer = new QTimer(this);
@@ -119,19 +127,19 @@ void swGame::keyHandle(QKeyEvent* event) {
 }
 
 void swGame::keyPressEvent(QKeyEvent* event) {
-    keyHandle(event);
+    keyEvent(event);
 }
 
 void swGame::keyReleaseEvent(QKeyEvent* event) {
-    keyHandle(event);
+    keyEvent(event);
 }
 
 void swGame::mouseMoveEvent(QMouseEvent* event) {
-
+    mouseEvent(event);
 }
 
 void swGame::mousePressEvent(QMouseEvent* event) {
-
+    mouseEvent(event);
 }
 
 void swGame::initializeGL() {
