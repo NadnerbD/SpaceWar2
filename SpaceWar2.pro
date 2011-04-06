@@ -35,7 +35,8 @@ SOURCES += main.cpp \
     swPlayerKillMsg.cpp \
     swDebris.cpp \
     swHeadsUpDisplay.cpp \
-    swMainMenu.cpp
+    swMainMenu.cpp \
+    swShipMenu.cpp
 HEADERS += swGame.h \
     swObject.h \
     swStream.h \
@@ -65,4 +66,5 @@ HEADERS += swGame.h \
     swPlayerKillMsg.h \
     swDebris.h \
     swHeadsUpDisplay.h \
-    swMainMenu.h
+    swMainMenu.h \
+    swShipMenu.h

@@ -63,18 +63,23 @@ void swMainMenu::keyHandle(QKeyEvent* event) {
 
 void swMainMenu::mouseHandle(QMouseEvent* event) {
     if(event->type() == QMouseEvent::MouseMove) {
-        // the screen edges don't seem to be positioned quite at 1 and -1, so fudge scaling here
-        swVector pos = swVector((event->posF().x() / game->size().width() * 2 - 1) * 1.1,
+        // the screen top and bottom are at 1.1 and -1.1 respectively
+        // the edges of the sides of the screen move. This transform
+        // is based on the glOrtho params found in swGame.cpp
+        swVector pos = swVector((event->posF().x() / game->size().width() * 2 - 1)
+                                    * (game->size().width() * 1.0 / game->size().height()),
                                 (-event->posF().y() / game->size().height() * 2 + 1) * 1.1);
         //qWarning("(%f, %f)", pos.x, pos.y);
         for(int i = 0; i < selections.length(); i++) {
             swLabel* item = selections[i];
-            if(pos.x < item->pos.x + item->scale.x * 5 &&
-               pos.x > item->pos.x - item->scale.x * 5 &&
+            if(pos.x < item->pos.x + item->scale.x * (item->string.length() - 1) &&
+               pos.x > item->pos.x - item->scale.x * (item->string.length() - 1) &&
                pos.y < item->pos.y + item->scale.y &&
                pos.y > item->pos.y - item->scale.y) {
                 selection = i;
             }
         }
+    }else if(event->type() == QMouseEvent::MouseButtonPress) {
+
     }
 }
