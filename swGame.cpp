@@ -9,6 +9,7 @@
 #include "swPlayer.h"
 #include "swFactory.h"
 #include "swMainMenu.h"
+#include "swShipMenu.h"
 #include "swPlayerCreateMsg.h"
 #include "swPhysCreateMsg.h"
 #include "swPlayerInputMsg.h"
@@ -30,7 +31,11 @@ swGame::swGame(QWidget *parent) : QGLWidget(parent), client(NULL), server(NULL) 
     // load the font
     font.swObject::read("data/swfont.vfont");
 
-    swMainMenu* menu = new swMainMenu(this);
+    //swMainMenu* menu = new swMainMenu(this);
+    //drawables.append(menu);
+
+    // TEMP: ship menu
+    swShipMenu* menu = new swShipMenu(this);
     drawables.append(menu);
 
     /*
