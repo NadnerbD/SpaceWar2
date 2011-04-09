@@ -18,7 +18,7 @@ private:
 
     swLabel selector;
     int selection;
-    QList<swMesh> ships;
+    QList<swMesh*> ships;
 
 private slots:
     void keyHandle(QKeyEvent*);

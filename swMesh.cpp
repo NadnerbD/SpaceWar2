@@ -25,27 +25,31 @@ swMesh::swMesh(const swMesh& orig) : vertCount(0), verts(NULL), edgeCount(0), ed
 }
 
 swMesh::~swMesh() {
+    clear();
+}
+
+void swMesh::clear() {
     if(verts)
-	delete verts;
+        delete verts;
     if(edges)
-	delete edges;
+        delete edges;
 }
 
 swMesh& swMesh::operator=(const swMesh& orig) {
     if(this != &orig) {
-	this->~swMesh();
+        clear();
 	vertCount = orig.vertCount;
 	edgeCount = orig.edgeCount;
 	verts = new double[vertCount * 3];
 	memcpy(verts, orig.verts, sizeof(double) * vertCount * 3);
 	edges = new int[edgeCount * 2];
-	memcpy(edges, orig.edges, sizeof(int) * edgeCount * 2);
+        memcpy(edges, orig.edges, sizeof(int) * edgeCount * 2);
     }
     return *this;
 }
 
 void swMesh::read(swStream* stream) {
-    this->~swMesh();
+    clear();
     stream->readInt(vertCount);
     verts = new double[vertCount * 3];
     stream->read((char*)verts, vertCount * sizeof(double) * 3);

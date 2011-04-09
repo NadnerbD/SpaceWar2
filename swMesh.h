@@ -10,6 +10,7 @@ public:
     swMesh(swStream* stream);
     swMesh(const swMesh& orig);
     virtual ~swMesh();
+    void clear();
 
     virtual void read(swStream* stream);
     virtual void write(swStream* stream);
