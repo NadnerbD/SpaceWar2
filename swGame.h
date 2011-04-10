@@ -10,6 +10,7 @@ class swDrawable;
 #include "swSimulator.h"
 #include "swStarfield.h"
 #include "swBitmask.h"
+#include "swPlayer.h"
 #include "swFont.h"
 
 class swGame : public QGLWidget {
@@ -35,12 +36,19 @@ public:
     void keyReleaseEvent(QKeyEvent* event);
     void mouseMoveEvent(QMouseEvent* event);
     void mousePressEvent(QMouseEvent* event);
+    // transforms pixel coordinate into
+    // projected (-1.1 - 1.1) coordinate
+    swVector projMousePos(QPointF pos);
 
     swClient* client;
     swServer* server;
     swSimulator simulator;
     swBitmask settings;
     swFont font;
+
+    // for setting up a player object to
+    // send to the server on connect
+    swPlayer playerConstruct;
 
     QList<swDrawable*> drawables;
     QTimer* qtimer;

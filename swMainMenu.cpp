@@ -1,7 +1,9 @@
+#include "swMainMenu.h"
+
+#include "swShipMenu.h"
+
 #include <QKeyEvent>
 #include <QMouseEvent>
-
-#include "swMainMenu.h"
 
 swMainMenu::swMainMenu(swGame* g) :
         swDrawable(0, 0, 0, 1, 1),
@@ -53,6 +55,9 @@ void swMainMenu::keyHandle(QKeyEvent* event) {
         case(Qt::Key_Down):
             selection++;
             break;
+        case(Qt::Key_Return):
+            choose();
+            return; // get out of here, this no longer exists
         }
         if(selection >= selections.length())
             selection = 0;
@@ -61,15 +66,27 @@ void swMainMenu::keyHandle(QKeyEvent* event) {
     }
 }
 
+void swMainMenu::choose() {
+    // this will move us to the next menu
+    switch(selection) {
+    case(0): // host game
+        return;
+        break;
+    case(1): // join game
+        game->drawables.append(new swShipMenu(game));
+        break;
+    case(2): // options
+        return;
+        break;
+    }
+    // remove and destroy this menu
+    game->drawables.removeAll(this);
+    delete this;
+}
+
 void swMainMenu::mouseHandle(QMouseEvent* event) {
+    swVector pos = game->projMousePos(event->posF());
     if(event->type() == QMouseEvent::MouseMove) {
-        // the screen top and bottom are at 1.1 and -1.1 respectively
-        // the edges of the sides of the screen move. This transform
-        // is based on the glOrtho params found in swGame.cpp
-        swVector pos = swVector((event->posF().x() / game->size().width() * 2 - 1)
-                                    * (game->size().width() * 1.0 / game->size().height()),
-                                (-event->posF().y() / game->size().height() * 2 + 1) * 1.1);
-        //qWarning("(%f, %f)", pos.x, pos.y);
         for(int i = 0; i < selections.length(); i++) {
             swLabel* item = selections[i];
             if(pos.x < item->pos.x + item->scale.x * (item->string.length() - 1) &&
@@ -80,6 +97,6 @@ void swMainMenu::mouseHandle(QMouseEvent* event) {
             }
         }
     }else if(event->type() == QMouseEvent::MouseButtonPress) {
-
+        choose();
     }
 }

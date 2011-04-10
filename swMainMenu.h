@@ -24,6 +24,8 @@ private:
     int selection;
     QList<swLabel*> selections;
 
+    void choose();
+
 private slots:
     void keyHandle(QKeyEvent*);
     void mouseHandle(QMouseEvent*);

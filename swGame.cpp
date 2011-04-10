@@ -31,17 +31,12 @@ swGame::swGame(QWidget *parent) : QGLWidget(parent), client(NULL), server(NULL) 
     // load the font
     font.swObject::read("data/swfont.vfont");
 
-    //swMainMenu* menu = new swMainMenu(this);
-    //drawables.append(menu);
-
-    // TEMP: ship menu
-    swShipMenu* menu = new swShipMenu(this);
-    drawables.append(menu);
+    // show the main menu
+    drawables.append(new swMainMenu(this));
 
     /*
     // TEMP: Create and display the HUD
-    swHeadsUpDisplay* HUD = new swHeadsUpDisplay(this);
-    drawables.append(HUD);
+    drawables.append(new swHeadsUpDisplay(this));
 
     // TEMP: create a demo ship and star, and simulate
     server = new swServer(this, 6668);
@@ -137,6 +132,15 @@ void swGame::keyPressEvent(QKeyEvent* event) {
 
 void swGame::keyReleaseEvent(QKeyEvent* event) {
     keyEvent(event);
+}
+
+swVector swGame::projMousePos(QPointF pos) {
+    // the screen top and bottom are at 1.1 and -1.1 respectively
+    // the edges of the sides of the screen move. This transform
+    // is based on the glOrtho params used to set up this screen
+    return swVector((pos.x() / size().width() * 2 - 1) *
+                    (size().width() * 1.0 / size().height()),
+                    -pos.y() / size().height() * 2 + 1) * 1.1;
 }
 
 void swGame::mouseMoveEvent(QMouseEvent* event) {

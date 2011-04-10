@@ -16,9 +16,9 @@ public:
 private:
     swGame* game;
 
-    swLabel selector;
-    int selection;
+    swLabel title;
     QList<swMesh*> ships;
+    int selection;
 
 private slots:
     void keyHandle(QKeyEvent*);
