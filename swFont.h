@@ -15,6 +15,7 @@ public:
     virtual void read(swStream* stream);
     virtual void write(swStream* stream);
     void drawLetter(char letter);
+    bool hasLetter(char letter);
 
     swMesh mesh;
     char charBase;

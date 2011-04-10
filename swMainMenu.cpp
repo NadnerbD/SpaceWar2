@@ -1,12 +1,11 @@
 #include "swMainMenu.h"
 
-#include "swShipMenu.h"
+#include "swNameMenu.h"
 
 #include <QKeyEvent>
 #include <QMouseEvent>
 
 swMainMenu::swMainMenu(swGame* g) :
-        swDrawable(0, 0, 0, 1, 1),
         game(g),
         title(&game->font, "SPACEWAR 2"),
         join(&game->font, "JOIN GAME"),
@@ -73,7 +72,7 @@ void swMainMenu::choose() {
         return;
         break;
     case(1): // join game
-        game->drawables.append(new swShipMenu(game));
+        game->drawables.append(new swNameMenu(game));
         break;
     case(2): // options
         return;

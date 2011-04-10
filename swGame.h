@@ -49,6 +49,7 @@ public:
     // for setting up a player object to
     // send to the server on connect
     swPlayer playerConstruct;
+    QString serverName;
 
     QList<swDrawable*> drawables;
     QTimer* qtimer;

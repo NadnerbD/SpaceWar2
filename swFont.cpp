@@ -42,8 +42,12 @@ void swFont::write(swStream *stream) {
     stream->write((char*)chars, charCount * sizeof(int));
 }
 
+bool swFont::hasLetter(char letter) {
+    return letter >= charBase && letter < (charBase + charCount);
+}
+
 void swFont::drawLetter(char letter) {
-    if(letter - charBase > charCount)
+    if(!hasLetter(letter))
 	return;
     glBegin(GL_LINES);
     for(int i = 0; i < mesh.edgeCount; i++) {

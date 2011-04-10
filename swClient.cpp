@@ -24,14 +24,11 @@ void swClient::recvMsg() {
 }
 
 void swClient::onConnect() {
-    // we really don't do anything here
     // the server sends us our init message as soon as the socket is connected
-    // we'll send the player create message later
 
-    // TEMP: create the player
+    // send our player to the server
     swPlayerCreateMsg playerMsg;
-    playerMsg.player.shipMesh.swObject::read("data/Arwing.shp");
-    playerMsg.player.name = "TestPlayer";
+    playerMsg.player = game->playerConstruct;
     swFactory::writeObject(&playerMsg, sock);
 
     // TEMP: create ship, initial velocity of 0.24 and initial pos radius of 0.5

@@ -9,7 +9,6 @@
 #include "swPlayer.h"
 #include "swFactory.h"
 #include "swMainMenu.h"
-#include "swShipMenu.h"
 #include "swPlayerCreateMsg.h"
 #include "swPhysCreateMsg.h"
 #include "swPlayerInputMsg.h"
@@ -30,6 +29,10 @@ swGame::swGame(QWidget *parent) : QGLWidget(parent), client(NULL), server(NULL) 
 
     // load the font
     font.swObject::read("data/swfont.vfont");
+
+    // TEMP: precreate the server
+    serverName = "localhost";
+    server = new swServer(this, 6668);
 
     // show the main menu
     drawables.append(new swMainMenu(this));

@@ -1,10 +1,13 @@
 #include "swShipMenu.h"
+#include "swLobbyMenu.h"
+#include "swClient.h"
 
 #include <QDir>
 #include <QKeyEvent>
 #include <QMouseEvent>
 
 swShipMenu::swShipMenu(swGame* g) : game(g), title(&game->font, "CHOOSE A SHIP"), selection(0) {
+    type = SW_SHIP_MENU;
     title.pos = swVector(0, 0.8);
     title.scale = swVector(0.1, 0.1);
     QDir dataDir("data");
@@ -48,6 +51,9 @@ void swShipMenu::keyHandle(QKeyEvent* event) {
         case(Qt::Key_Right):
             selection++;
             break;
+        case(Qt::Key_Return):
+            choose();
+            return;
         }
         if(selection >= ships.length())
             selection = 0;
@@ -64,6 +70,16 @@ void swShipMenu::mouseHandle(QMouseEvent* event) {
                 selection++;
             else if(pos.x < -0.5 && selection > 0)
                 selection--;
+            else if(pos.x > -0.5 && pos.x < 0.5)
+                choose();
         }
     }
+}
+
+void swShipMenu::choose() {
+    game->playerConstruct.shipMesh = *ships[selection];
+    game->client = new swClient(game, game->serverName, 6668);
+    game->drawables.append(new swLobbyMenu(game));
+    game->drawables.removeAll(this);
+    delete this;
 }

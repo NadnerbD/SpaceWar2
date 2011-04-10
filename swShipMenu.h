@@ -20,6 +20,8 @@ private:
     QList<swMesh*> ships;
     int selection;
 
+    void choose();
+
 private slots:
     void keyHandle(QKeyEvent*);
     void mouseHandle(QMouseEvent*);
