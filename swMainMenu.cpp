@@ -1,5 +1,7 @@
 #include "swMainMenu.h"
 
+#include "swServer.h"
+#include "swHostMenu.h"
 #include "swNameMenu.h"
 
 #include <QKeyEvent>
@@ -69,10 +71,12 @@ void swMainMenu::choose() {
     // this will move us to the next menu
     switch(selection) {
     case(0): // host game
-        return;
+        // since we're hosting, we should create the server
+        game->server = new swServer(game, 6668);
+        game->drawables.append(new swNameMenu(game));
         break;
     case(1): // join game
-        game->drawables.append(new swNameMenu(game));
+        game->drawables.append(new swHostMenu(game));
         break;
     case(2): // options
         return;

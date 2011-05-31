@@ -30,12 +30,22 @@ swGame::swGame(QWidget *parent) : QGLWidget(parent), client(NULL), server(NULL) 
     // load the font
     font.swObject::read("data/swfont.vfont");
 
-    // TEMP: precreate the server
+    // we connect to localhost unless set by the host menu
     serverName = "localhost";
-    server = new swServer(this, 6668);
 
     // show the main menu
     drawables.append(new swMainMenu(this));
+
+    /*
+     * The menu system is made up of a set of menu classes that
+     * destroy and create each other as neccessary, passing around
+     * a reference to to the game object
+     *
+     * swMainMenu:
+     *      - Host Game -> swNameMenu -> swShipMenu -> swLobbyMenu
+     *      - Join Game -> swHostMenu -> swNameMenu -> swShipMenu -> swLobbyMenu
+     *      - Options   -> swOptionsMenu -> swMainMenu
+     */
 
     /*
     // TEMP: Create and display the HUD
