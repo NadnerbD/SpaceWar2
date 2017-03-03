@@ -10,6 +10,7 @@
 #include "swPhysUpdateMsg.h"
 #include "swPhysDeleteMsg.h"
 #include "swPlayerKillMsg.h"
+#include "swReadyMsg.h"
 
 swFactory::swFactory() {}
 
@@ -56,6 +57,9 @@ swObject* swFactory::readObject(swStream* stream) {
 	    break;
 	case(swObject::SW_PLAYER_KILL_MSG):
 	    data = new swPlayerKillMsg();
+	    break;
+	case(swObject::SW_READY_MSG):
+	    data = new swReadyMsg();
 	    break;
 	default:
 	    qWarning("Factory attempt to read unsupported type: %d", type);

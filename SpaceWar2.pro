@@ -40,7 +40,8 @@ SOURCES += main.cpp \
     swNameMenu.cpp \
     swLobbyMenu.cpp \
     swTextMenu.cpp \
-    swHostMenu.cpp
+    swHostMenu.cpp \
+    swReadyMsg.cpp
 HEADERS += swGame.h \
     swObject.h \
     swStream.h \
@@ -75,4 +76,5 @@ HEADERS += swGame.h \
     swNameMenu.h \
     swLobbyMenu.h \
     swTextMenu.h \
-    swHostMenu.h
+    swHostMenu.h \
+    swReadyMsg.h

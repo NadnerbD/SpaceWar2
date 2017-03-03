@@ -12,6 +12,7 @@ swHostMenu::~swHostMenu() {}
 
 void swHostMenu::enteredText(QString value) {
     // prepare to connect to the entered host
+    game->serverName = text.string;
     game->drawables.append(new swNameMenu(game));
     remove();
 }

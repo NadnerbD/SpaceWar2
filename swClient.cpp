@@ -30,20 +30,6 @@ void swClient::onConnect() {
     swPlayerCreateMsg playerMsg;
     playerMsg.player = game->playerConstruct;
     swFactory::writeObject(&playerMsg, sock);
-
-    // TEMP: create ship, initial velocity of 0.24 and initial pos radius of 0.5
-    swPhysCreateMsg physMsg;
-    swShip newShip = swShip();
-    newShip.ownerId = 0; // we know this is us, since we're the only player, later this will have to use our clientId
-    newShip.pos = swVector(0.5, 0.0);
-    newShip.vel = swVector(0.0, 0.24);
-    physMsg.object = &newShip;
-    swFactory::writeObject(&physMsg, sock);
-
-    // TEMP: create the star
-    swStar newStar = swStar();
-    physMsg.object = &newStar;
-    swFactory::writeObject(&physMsg, sock);
 }
 
 void swClient::error(QAbstractSocket::SocketError) {

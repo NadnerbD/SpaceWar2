@@ -16,6 +16,9 @@ public:
 private:
     swGame* game;
     swLabel name;
+
+private slots:
+    void keyHandle(QKeyEvent*);
 };
 
 #endif // SWLOBBYMENU_H
